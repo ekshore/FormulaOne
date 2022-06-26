@@ -1,0 +1,437 @@
+<table class="resultsarchive-table">
+        <thead>
+            <tr>
+                <th class="limiter"></th>
+                <th><abbr title="Position">Pos</abbr></th>
+                <th class="hide-for-mobile"><abbr title="Number">No</abbr></th>
+                <th>Driver</th>
+                <th class=" hide-for-tablet">Car</th>
+                <th class=" hide-for-mobile">Laps</th>
+                <th>Time/Retired</th>
+                <th><abbr title="Points">PTS</abbr></th>
+                <th class="limiter"></th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            <tr>
+
+                <td class="limiter"></td>
+                <td class="dark">1</td>
+                <td class="dark hide-for-mobile">16</td>
+                <td class="dark bold">
+                    
+                    
+                        <span class="hide-for-tablet">Charles</span>
+                        <span class="hide-for-mobile">Leclerc</span>
+                    
+                    <span class="uppercase hide-for-desktop">LEC</span>
+                </td>
+                <td class="semi-bold uppercase hide-for-tablet">Ferrari</td>
+                <td class="bold hide-for-mobile">57</td>
+                <td class="dark bold">1:37:33.584</td>
+                <td class="bold">26</td>
+                <td class="limiter"></td>
+            </tr>
+        
+
+            <tr>
+
+                <td class="limiter"></td>
+                <td class="dark">2</td>
+                <td class="dark hide-for-mobile">55</td>
+                <td class="dark bold">
+                    
+                    
+                        <span class="hide-for-tablet">Carlos</span>
+                        <span class="hide-for-mobile">Sainz</span>
+                    
+                    <span class="uppercase hide-for-desktop">SAI</span>
+                </td>
+                <td class="semi-bold uppercase hide-for-tablet">Ferrari</td>
+                <td class="bold hide-for-mobile">57</td>
+                <td class="dark bold">+5.598<span class="suffix seconds">s</span></td>
+                <td class="bold">18</td>
+                <td class="limiter"></td>
+            </tr>
+        
+
+            <tr>
+
+                <td class="limiter"></td>
+                <td class="dark">3</td>
+                <td class="dark hide-for-mobile">44</td>
+                <td class="dark bold">
+                    
+                    
+                        <span class="hide-for-tablet">Lewis</span>
+                        <span class="hide-for-mobile">Hamilton</span>
+                    
+                    <span class="uppercase hide-for-desktop">HAM</span>
+                </td>
+                <td class="semi-bold uppercase hide-for-tablet">Mercedes</td>
+                <td class="bold hide-for-mobile">57</td>
+                <td class="dark bold">+9.675<span class="suffix seconds">s</span></td>
+                <td class="bold">15</td>
+                <td class="limiter"></td>
+            </tr>
+        
+
+            <tr>
+
+                <td class="limiter"></td>
+                <td class="dark">4</td>
+                <td class="dark hide-for-mobile">63</td>
+                <td class="dark bold">
+                    
+                    
+                        <span class="hide-for-tablet">George</span>
+                        <span class="hide-for-mobile">Russell</span>
+                    
+                    <span class="uppercase hide-for-desktop">RUS</span>
+                </td>
+                <td class="semi-bold uppercase hide-for-tablet">Mercedes</td>
+                <td class="bold hide-for-mobile">57</td>
+                <td class="dark bold">+11.211<span class="suffix seconds">s</span></td>
+                <td class="bold">12</td>
+                <td class="limiter"></td>
+            </tr>
+        
+
+            <tr>
+
+                <td class="limiter"></td>
+                <td class="dark">5</td>
+                <td class="dark hide-for-mobile">20</td>
+                <td class="dark bold">
+                    
+                    
+                        <span class="hide-for-tablet">Kevin</span>
+                        <span class="hide-for-mobile">Magnussen</span>
+                    
+                    <span class="uppercase hide-for-desktop">MAG</span>
+                </td>
+                <td class="semi-bold uppercase hide-for-tablet">Haas Ferrari</td>
+                <td class="bold hide-for-mobile">57</td>
+                <td class="dark bold">+14.754<span class="suffix seconds">s</span></td>
+                <td class="bold">10</td>
+                <td class="limiter"></td>
+            </tr>
+        
+
+            <tr>
+
+                <td class="limiter"></td>
+                <td class="dark">6</td>
+                <td class="dark hide-for-mobile">77</td>
+                <td class="dark bold">
+                    
+                    
+                        <span class="hide-for-tablet">Valtteri</span>
+                        <span class="hide-for-mobile">Bottas</span>
+                    
+                    <span class="uppercase hide-for-desktop">BOT</span>
+                </td>
+                <td class="semi-bold uppercase hide-for-tablet">Alfa Romeo Ferrari</td>
+                <td class="bold hide-for-mobile">57</td>
+                <td class="dark bold">+16.119<span class="suffix seconds">s</span></td>
+                <td class="bold">8</td>
+                <td class="limiter"></td>
+            </tr>
+        
+
+            <tr>
+
+                <td class="limiter"></td>
+                <td class="dark">7</td>
+                <td class="dark hide-for-mobile">31</td>
+                <td class="dark bold">
+                    
+                    
+                        <span class="hide-for-tablet">Esteban</span>
+                        <span class="hide-for-mobile">Ocon</span>
+                    
+                    <span class="uppercase hide-for-desktop">OCO</span>
+                </td>
+                <td class="semi-bold uppercase hide-for-tablet">Alpine Renault</td>
+                <td class="bold hide-for-mobile">57</td>
+                <td class="dark bold">+19.423<span class="suffix seconds">s</span></td>
+                <td class="bold">6</td>
+                <td class="limiter"></td>
+            </tr>
+        
+
+            <tr>
+
+                <td class="limiter"></td>
+                <td class="dark">8</td>
+                <td class="dark hide-for-mobile">22</td>
+                <td class="dark bold">
+                    
+                    
+                        <span class="hide-for-tablet">Yuki</span>
+                        <span class="hide-for-mobile">Tsunoda</span>
+                    
+                    <span class="uppercase hide-for-desktop">TSU</span>
+                </td>
+                <td class="semi-bold uppercase hide-for-tablet">AlphaTauri RBPT</td>
+                <td class="bold hide-for-mobile">57</td>
+                <td class="dark bold">+20.386<span class="suffix seconds">s</span></td>
+                <td class="bold">4</td>
+                <td class="limiter"></td>
+            </tr>
+        
+
+            <tr>
+
+                <td class="limiter"></td>
+                <td class="dark">9</td>
+                <td class="dark hide-for-mobile">14</td>
+                <td class="dark bold">
+                    
+                    
+                        <span class="hide-for-tablet">Fernando</span>
+                        <span class="hide-for-mobile">Alonso</span>
+                    
+                    <span class="uppercase hide-for-desktop">ALO</span>
+                </td>
+                <td class="semi-bold uppercase hide-for-tablet">Alpine Renault</td>
+                <td class="bold hide-for-mobile">57</td>
+                <td class="dark bold">+22.390<span class="suffix seconds">s</span></td>
+                <td class="bold">2</td>
+                <td class="limiter"></td>
+            </tr>
+        
+
+            <tr>
+
+                <td class="limiter"></td>
+                <td class="dark">10</td>
+                <td class="dark hide-for-mobile">24</td>
+                <td class="dark bold">
+                    
+                        <span class="hide-for-mobile">Zhou</span>
+                        <span class="hide-for-tablet">Guanyu</span>
+                    
+                    
+                    <span class="uppercase hide-for-desktop">ZHO</span>
+                </td>
+                <td class="semi-bold uppercase hide-for-tablet">Alfa Romeo Ferrari</td>
+                <td class="bold hide-for-mobile">57</td>
+                <td class="dark bold">+23.064<span class="suffix seconds">s</span></td>
+                <td class="bold">1</td>
+                <td class="limiter"></td>
+            </tr>
+        
+
+            <tr>
+
+                <td class="limiter"></td>
+                <td class="dark">11</td>
+                <td class="dark hide-for-mobile">47</td>
+                <td class="dark bold">
+                    
+                    
+                        <span class="hide-for-tablet">Mick</span>
+                        <span class="hide-for-mobile">Schumacher</span>
+                    
+                    <span class="uppercase hide-for-desktop">MSC</span>
+                </td>
+                <td class="semi-bold uppercase hide-for-tablet">Haas Ferrari</td>
+                <td class="bold hide-for-mobile">57</td>
+                <td class="dark bold">+32.574<span class="suffix seconds">s</span></td>
+                <td class="bold">0</td>
+                <td class="limiter"></td>
+            </tr>
+        
+
+            <tr>
+
+                <td class="limiter"></td>
+                <td class="dark">12</td>
+                <td class="dark hide-for-mobile">18</td>
+                <td class="dark bold">
+                    
+                    
+                        <span class="hide-for-tablet">Lance</span>
+                        <span class="hide-for-mobile">Stroll</span>
+                    
+                    <span class="uppercase hide-for-desktop">STR</span>
+                </td>
+                <td class="semi-bold uppercase hide-for-tablet">Aston Martin Aramco Mercedes</td>
+                <td class="bold hide-for-mobile">57</td>
+                <td class="dark bold">+45.873<span class="suffix seconds">s</span></td>
+                <td class="bold">0</td>
+                <td class="limiter"></td>
+            </tr>
+        
+
+            <tr>
+
+                <td class="limiter"></td>
+                <td class="dark">13</td>
+                <td class="dark hide-for-mobile">23</td>
+                <td class="dark bold">
+                    
+                    
+                        <span class="hide-for-tablet">Alexander</span>
+                        <span class="hide-for-mobile">Albon</span>
+                    
+                    <span class="uppercase hide-for-desktop">ALB</span>
+                </td>
+                <td class="semi-bold uppercase hide-for-tablet">Williams Mercedes</td>
+                <td class="bold hide-for-mobile">57</td>
+                <td class="dark bold">+53.932<span class="suffix seconds">s</span></td>
+                <td class="bold">0</td>
+                <td class="limiter"></td>
+            </tr>
+        
+
+            <tr>
+
+                <td class="limiter"></td>
+                <td class="dark">14</td>
+                <td class="dark hide-for-mobile">3</td>
+                <td class="dark bold">
+                    
+                    
+                        <span class="hide-for-tablet">Daniel</span>
+                        <span class="hide-for-mobile">Ricciardo</span>
+                    
+                    <span class="uppercase hide-for-desktop">RIC</span>
+                </td>
+                <td class="semi-bold uppercase hide-for-tablet">McLaren Mercedes</td>
+                <td class="bold hide-for-mobile">57</td>
+                <td class="dark bold">+54.975<span class="suffix seconds">s</span></td>
+                <td class="bold">0</td>
+                <td class="limiter"></td>
+            </tr>
+        
+
+            <tr>
+
+                <td class="limiter"></td>
+                <td class="dark">15</td>
+                <td class="dark hide-for-mobile">4</td>
+                <td class="dark bold">
+                    
+                    
+                        <span class="hide-for-tablet">Lando</span>
+                        <span class="hide-for-mobile">Norris</span>
+                    
+                    <span class="uppercase hide-for-desktop">NOR</span>
+                </td>
+                <td class="semi-bold uppercase hide-for-tablet">McLaren Mercedes</td>
+                <td class="bold hide-for-mobile">57</td>
+                <td class="dark bold">+56.335<span class="suffix seconds">s</span></td>
+                <td class="bold">0</td>
+                <td class="limiter"></td>
+            </tr>
+        
+
+            <tr>
+
+                <td class="limiter"></td>
+                <td class="dark">16</td>
+                <td class="dark hide-for-mobile">6</td>
+                <td class="dark bold">
+                    
+                    
+                        <span class="hide-for-tablet">Nicholas</span>
+                        <span class="hide-for-mobile">Latifi</span>
+                    
+                    <span class="uppercase hide-for-desktop">LAT</span>
+                </td>
+                <td class="semi-bold uppercase hide-for-tablet">Williams Mercedes</td>
+                <td class="bold hide-for-mobile">57</td>
+                <td class="dark bold">+61.795<span class="suffix seconds">s</span></td>
+                <td class="bold">0</td>
+                <td class="limiter"></td>
+            </tr>
+        
+
+            <tr>
+
+                <td class="limiter"></td>
+                <td class="dark">17</td>
+                <td class="dark hide-for-mobile">27</td>
+                <td class="dark bold">
+                    
+                    
+                        <span class="hide-for-tablet">Nico</span>
+                        <span class="hide-for-mobile">Hulkenberg</span>
+                    
+                    <span class="uppercase hide-for-desktop">HUL</span>
+                </td>
+                <td class="semi-bold uppercase hide-for-tablet">Aston Martin Aramco Mercedes</td>
+                <td class="bold hide-for-mobile">57</td>
+                <td class="dark bold">+63.829<span class="suffix seconds">s</span></td>
+                <td class="bold">0</td>
+                <td class="limiter"></td>
+            </tr>
+        
+
+            <tr>
+
+                <td class="limiter"></td>
+                <td class="dark">18</td>
+                <td class="dark hide-for-mobile">11</td>
+                <td class="dark bold">
+                    
+                    
+                        <span class="hide-for-tablet">Sergio</span>
+                        <span class="hide-for-mobile">Perez</span>
+                    
+                    <span class="uppercase hide-for-desktop">PER</span>
+                </td>
+                <td class="semi-bold uppercase hide-for-tablet">Red Bull Racing RBPT</td>
+                <td class="bold hide-for-mobile">56</td>
+                <td class="dark bold">DNF</td>
+                <td class="bold">0</td>
+                <td class="limiter"></td>
+            </tr>
+        
+
+            <tr>
+
+                <td class="limiter"></td>
+                <td class="dark">19</td>
+                <td class="dark hide-for-mobile">1</td>
+                <td class="dark bold">
+                    
+                    
+                        <span class="hide-for-tablet">Max</span>
+                        <span class="hide-for-mobile">Verstappen</span>
+                    
+                    <span class="uppercase hide-for-desktop">VER</span>
+                </td>
+                <td class="semi-bold uppercase hide-for-tablet">Red Bull Racing RBPT</td>
+                <td class="bold hide-for-mobile">54</td>
+                <td class="dark bold">DNF</td>
+                <td class="bold">0</td>
+                <td class="limiter"></td>
+            </tr>
+        
+
+            <tr>
+
+                <td class="limiter"></td>
+                <td class="dark">NC</td>
+                <td class="dark hide-for-mobile">10</td>
+                <td class="dark bold">
+                    
+                    
+                        <span class="hide-for-tablet">Pierre</span>
+                        <span class="hide-for-mobile">Gasly</span>
+                    
+                    <span class="uppercase hide-for-desktop">GAS</span>
+                </td>
+                <td class="semi-bold uppercase hide-for-tablet">AlphaTauri RBPT</td>
+                <td class="bold hide-for-mobile">44</td>
+                <td class="dark bold">DNF</td>
+                <td class="bold">0</td>
+                <td class="limiter"></td>
+            </tr>
+        </tbody>
+    </table>
