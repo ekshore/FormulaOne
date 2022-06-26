@@ -4,11 +4,9 @@ const cheerio = require('cheerio');
 
 import { selectors } from './../../lambda/utility/selectors';
 import { Testing } from './../../lambda/process-race';
-import { TokenizedStringFragments } from 'aws-cdk-lib';
 
 let $testData: any;
-let $sessionData: any
-;
+let $sessionData: any;
 
 beforeAll(() => {
   try {
@@ -16,14 +14,14 @@ beforeAll(() => {
     let sessionData = fs.readFileSync(path.join(__dirname, '../resources/session-data.txt').toString()).toString();
     $testData = cheerio.load(testData);
     $sessionData = cheerio.load(sessionData);
-  } catch (err) { 
+  } catch (err) {
     console.log('ErrorLoading test data from file', err);
   }
 });
 
 describe('Testing data processing', () => {
   test('Test handler()', () => {
-    const gp =  { year: '2022', name: 'Bahrain', endpoint: '/en/results.html/2022/races/1124/bahrain/race-result.html' };
+    const gp = { year: '2022', name: 'Bahrain', endpoint: '/en/results.html/2022/races/1124/bahrain/race-result.html' };
     const result = Testing.handler(gp);
     expect(result).resolves.not.toBe({ year: undefined, name: undefined, data: undefined });
   });
@@ -46,14 +44,14 @@ describe('Data Retrieval', () => {
 
 describe('Test data mapping', () => {
   test('Test buildHeaders()', () => {
-    const expected = [ 'Grand Prix', 'Date', 'Winner', 'Car', 'Laps', 'Time'];
+    const expected = ['Grand Prix', 'Date', 'Winner', 'Car', 'Laps', 'Time'];
     const result = Testing.buildHeaders($testData, selectors.data);
   });
 
   test('Test mapData()', () => {
-    const headers = [ 'Grand Prix', 'Date', 'Winner', 'Car', 'Laps', 'Time'];
+    const headers = ['Grand Prix', 'Date', 'Winner', 'Car', 'Laps', 'Time'];
     const rows = $testData('tbody > tr', selectors.data).toArray();
-    const expected =  JSON.parse('{ "Grand Prix" : "Bahrain", "Date" : "20 Mar 2022", "Winner" : { "firstName" : "Charles", "lastName" : "Leclerc", "abbr" : "LEC" }, "Car" : "Ferrari", "Laps" : "57", "Time" : "1:37:33.584" }');
+    const expected = JSON.parse('{ "Grand Prix" : "Bahrain", "Date" : "20 Mar 2022", "Winner" : { "firstName" : "Charles", "lastName" : "Leclerc", "abbr" : "LEC" }, "Car" : "Ferrari", "Laps" : "57", "Time" : "1:37:33.584" }');
     const result = Testing.mapData($testData, rows[0], headers);
     expect(result).toEqual(expected);
   });
