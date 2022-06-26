@@ -11,7 +11,7 @@ let pageData: String;
 let $: any;
 beforeAll(() => {
   try {
-    pageData = readFileSync(path.join(__dirname, '../../resources/test-page.html').toString()).toString();
+    pageData = readFileSync(path.join(__dirname, '../../resources/test-page.txt').toString()).toString();
     $ = cheerio.load(pageData);
   } catch (err) { 
     console.log('ErrorLoading test data from file', err);
