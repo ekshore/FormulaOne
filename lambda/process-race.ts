@@ -11,7 +11,6 @@ export const handler = async (gp: any) => {
     name: gp.name,
     data: data
   }
-  console.log(gpData);
   return gpData;
 }
 
