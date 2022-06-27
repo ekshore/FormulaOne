@@ -19,7 +19,7 @@ const processor = async (sessions: Promise<any>[]): Promise<any> => {
       console.log('Processing data for session:', session.label);
       let $session = cheerio.load(session.data);
       const headers = buildHeaders($session, selectors.sessionData);
-      let sessionData = $session('tbody > tr', selectors.sessionData).toArray().map((row: any) => mapData($session, row, headers));
+      let sessionData = $session('tbody > tr', selectors.sessionData).toArray().map((row: any)=> mapData($session, row, headers));
       return { session: session.label, data: sessionData };
     }).catch(err => console.error('An error occured during session processing:', err));
   });
@@ -30,7 +30,7 @@ const processor = async (sessions: Promise<any>[]): Promise<any> => {
 const retrieveSessions = async (endpoint: string) => {
   const sessionLinks = hf.scrapeLinks(await hf.makeRequest(endpoint), selectors.session, hf.dataSetLinkMapper);
   return sessionLinks.filter((link: hf.Link) => link.label !== undefined)
-    .map(async (sessionLink: hf.Link, i: number, _: hf.Link[]) => { return { label: sessionLink.label, data: await hf.makeRequest(sessionLink.endpoint) } });
+    .map(async (sessionLink: hf.Link, i: number, _: hf.Link[]) => { return { label: sessionLink.label, data: await hf.makeRequest(sessionLink.endpoint) }});
 }
 
 const buildHeaders = ($: any, contextSelector: string): string[] => {
