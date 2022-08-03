@@ -21,7 +21,7 @@ beforeAll(() => {
 
 describe('Testing data processing', () => {
   test('Test handler()', () => {
-    const gp = { year: '2022', name: 'Bahrain', endpoint: '/en/results.html/2022/races/1124/bahrain/race-result.html' };
+    const gp = { year: '2022', name: 'Bahrain', dataEndpoint: '/en/results.html/2022/races/1124/bahrain/race-result.html' };
     const result = Testing.handler(gp);
     expect(result).resolves.not.toBe({ year: undefined, name: undefined, data: undefined });
   });

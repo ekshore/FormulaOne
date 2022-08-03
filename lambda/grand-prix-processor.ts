@@ -2,8 +2,8 @@ const cheerio = require('cheerio');
 import * as hf from './utility/helper-functions';
 import { selectors } from './utility/selectors';
 
-export const handler = async (gp: GrandPrix) => {
-  const sessions = await retrieveSessions(gp.endpoint);
+export const handler = async (gp: GrandPrixEvent) => {
+  const sessions = await retrieveSessions(gp.dataEndpoint);
   const data = await processor(sessions);
   let gpData = { year: gp.year, name: gp.name, data: data }
   return gpData;
@@ -25,8 +25,8 @@ const processor = async (sessions: Promise<any>[]): Promise<any> => {
 
 const retrieveSessions = async (endpoint: string) => {
   const sessionLinks = hf.scrapeLinks(await hf.makeRequest(endpoint), selectors.session, hf.dataSetLinkMapper);
-  return sessionLinks.filter((link: hf.Link) => link.label !== undefined)
-    .map(async (sessionLink: hf.Link, i: number, _: hf.Link[]) => { return { label: sessionLink.label, data: await hf.makeRequest(sessionLink.endpoint) }});
+  return sessionLinks.filter((link: Link) => link.label !== undefined)
+    .map(async (sessionLink: Link, i: number, _: Link[]) => { return { label: sessionLink.label, data: await hf.makeRequest(sessionLink.endpoint) }});
 }
 
 const buildHeaders = ($: any, contextSelector: string): string[] => {
@@ -53,12 +53,6 @@ const mapData = ($row: any, row: any, headers: string[]) => {
       data[headers[i]] = item;
     });
   return data;
-}
-
-class GrandPrix {
-  name: string;
-  year: string;
-  endpoint: string;
 }
 
 export const Testing = {

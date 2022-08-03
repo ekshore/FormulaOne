@@ -17,8 +17,3 @@ export async function makeRequest(endpoint: string) {
   });
   return data;
 }
-
-export class Link {
-  endpoint: string;
-  label: string;
-}
