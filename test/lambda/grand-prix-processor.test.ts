@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const cheerio = require('cheerio');
 
-import { selectors } from '../../lambda/utility/selectors';
+import { selectors } from './../../lambda/utility/selectors';
 import { Testing } from '../../lambda/grand-prix-processor';
 
 let $testData: any;

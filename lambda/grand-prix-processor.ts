@@ -2,14 +2,10 @@ const cheerio = require('cheerio');
 import * as hf from './utility/helper-functions';
 import { selectors } from './utility/selectors';
 
-export const handler = async (gp: any) => {
+export const handler = async (gp: GrandPrix) => {
   const sessions = await retrieveSessions(gp.endpoint);
   const data = await processor(sessions);
-  let gpData = {
-    year: gp.year,
-    name: gp.name,
-    data: data
-  }
+  let gpData = { year: gp.year, name: gp.name, data: data }
   return gpData;
 }
 
@@ -57,6 +53,12 @@ const mapData = ($row: any, row: any, headers: string[]) => {
       data[headers[i]] = item;
     });
   return data;
+}
+
+class GrandPrix {
+  name: string;
+  year: string;
+  endpoint: string;
 }
 
 export const Testing = {
