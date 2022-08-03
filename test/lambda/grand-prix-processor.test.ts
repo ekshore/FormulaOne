@@ -46,6 +46,7 @@ describe('Test data mapping', () => {
   test('Test buildHeaders()', () => {
     const expected = ['Grand Prix', 'Date', 'Winner', 'Car', 'Laps', 'Time'];
     const result = Testing.buildHeaders($testData, selectors.data);
+    expect(result).toEqual(expected);
   });
 
   test('Test mapData()', () => {

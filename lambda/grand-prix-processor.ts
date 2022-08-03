@@ -12,7 +12,7 @@ export const handler = async (gp: GrandPrix) => {
 const processor = async (sessions: Promise<any>[]): Promise<any> => {
   let sessionResults = sessions.map((session: Promise<any>) => {
     return session.then(session => {
-      console.log('Processing data for session:', session.label);
+      // console.log('Processing data for session:', session.label);
       let $session = cheerio.load(session.data);
       const headers = buildHeaders($session, selectors.sessionData);
       let sessionData = $session('tbody > tr', selectors.sessionData).toArray().map((row: any)=> mapData($session, row, headers));
@@ -36,7 +36,7 @@ const buildHeaders = ($: any, contextSelector: string): string[] => {
       let abbr = $('abbr', element);
       if (abbr.length > 0) return $(abbr).attr('title');
       else return $(element).text();
-    });
+    }).toArray();
 }
 
 const mapData = ($row: any, row: any, headers: string[]) => {
