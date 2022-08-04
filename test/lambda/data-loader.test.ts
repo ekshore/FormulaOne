@@ -26,6 +26,11 @@ describe('Testing Data Loader', () => {
     mock.reset
   });
 
+  test('Testing handler()', async () => {
+    mock.onAny().reply(200, testPageData);
+    expect(await Testing.handler([{ endpoint: "/en/results.html/2022/races.html", label: "2022" }])).toBeUndefined();
+  });
+
   test('Testing retrieveGrandPrixs()', async () => {
     mock.onAny().reply(200, testPageData);
     const result = await Testing.retrieveSeasons(process.env.ENDPOINT!);
