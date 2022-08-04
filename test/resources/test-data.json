@@ -1,0 +1,194 @@
+{
+  "seasons" : [
+    { "endpoint": "/en/results.html/2022/races.html", "label": "2022" },
+    { "endpoint": "/en/results.html/2021/races.html", "label": "2021" },
+    { "endpoint": "/en/results.html/2020/races.html", "label": "2020" },
+    { "endpoint": "/en/results.html/2019/races.html", "label": "2019" },
+    { "endpoint": "/en/results.html/2018/races.html", "label": "2018" },
+    { "endpoint": "/en/results.html/2017/races.html", "label": "2017" },
+    { "endpoint": "/en/results.html/2016/races.html", "label": "2016" },
+    { "endpoint": "/en/results.html/2015/races.html", "label": "2015" },
+    { "endpoint": "/en/results.html/2014/races.html", "label": "2014" },
+    { "endpoint": "/en/results.html/2013/races.html", "label": "2013" },
+    { "endpoint": "/en/results.html/2012/races.html", "label": "2012" },
+    { "endpoint": "/en/results.html/2011/races.html", "label": "2011" },
+    { "endpoint": "/en/results.html/2010/races.html", "label": "2010" },
+    { "endpoint": "/en/results.html/2009/races.html", "label": "2009" },
+    { "endpoint": "/en/results.html/2008/races.html", "label": "2008" },
+    { "endpoint": "/en/results.html/2007/races.html", "label": "2007" },
+    { "endpoint": "/en/results.html/2006/races.html", "label": "2006" },
+    { "endpoint": "/en/results.html/2005/races.html", "label": "2005" },
+    { "endpoint": "/en/results.html/2004/races.html", "label": "2004" },
+    { "endpoint": "/en/results.html/2003/races.html", "label": "2003" },
+    { "endpoint": "/en/results.html/2002/races.html", "label": "2002" },
+    { "endpoint": "/en/results.html/2001/races.html", "label": "2001" },
+    { "endpoint": "/en/results.html/2000/races.html", "label": "2000" },
+    { "endpoint": "/en/results.html/1999/races.html", "label": "1999" },
+    { "endpoint": "/en/results.html/1998/races.html", "label": "1998" },
+    { "endpoint": "/en/results.html/1997/races.html", "label": "1997" },
+    { "endpoint": "/en/results.html/1996/races.html", "label": "1996" },
+    { "endpoint": "/en/results.html/1995/races.html", "label": "1995" },
+    { "endpoint": "/en/results.html/1994/races.html", "label": "1994" },
+    { "endpoint": "/en/results.html/1993/races.html", "label": "1993" },
+    { "endpoint": "/en/results.html/1992/races.html", "label": "1992" },
+    { "endpoint": "/en/results.html/1991/races.html", "label": "1991" },
+    { "endpoint": "/en/results.html/1990/races.html", "label": "1990" },
+    { "endpoint": "/en/results.html/1989/races.html", "label": "1989" },
+    { "endpoint": "/en/results.html/1988/races.html", "label": "1988" },
+    { "endpoint": "/en/results.html/1987/races.html", "label": "1987" },
+    { "endpoint": "/en/results.html/1986/races.html", "label": "1986" },
+    { "endpoint": "/en/results.html/1985/races.html", "label": "1985" },
+    { "endpoint": "/en/results.html/1984/races.html", "label": "1984" },
+    { "endpoint": "/en/results.html/1983/races.html", "label": "1983" },
+    { "endpoint": "/en/results.html/1982/races.html", "label": "1982" },
+    { "endpoint": "/en/results.html/1981/races.html", "label": "1981" },
+    { "endpoint": "/en/results.html/1980/races.html", "label": "1980" },
+    { "endpoint": "/en/results.html/1979/races.html", "label": "1979" },
+    { "endpoint": "/en/results.html/1978/races.html", "label": "1978" },
+    { "endpoint": "/en/results.html/1977/races.html", "label": "1977" },
+    { "endpoint": "/en/results.html/1976/races.html", "label": "1976" },
+    { "endpoint": "/en/results.html/1975/races.html", "label": "1975" },
+    { "endpoint": "/en/results.html/1974/races.html", "label": "1974" },
+    { "endpoint": "/en/results.html/1973/races.html", "label": "1973" },
+    { "endpoint": "/en/results.html/1972/races.html", "label": "1972" },
+    { "endpoint": "/en/results.html/1971/races.html", "label": "1971" },
+    { "endpoint": "/en/results.html/1970/races.html", "label": "1970" },
+    { "endpoint": "/en/results.html/1969/races.html", "label": "1969" },
+    { "endpoint": "/en/results.html/1968/races.html", "label": "1968" },
+    { "endpoint": "/en/results.html/1967/races.html", "label": "1967" },
+    { "endpoint": "/en/results.html/1966/races.html", "label": "1966" },
+    { "endpoint": "/en/results.html/1965/races.html", "label": "1965" },
+    { "endpoint": "/en/results.html/1964/races.html", "label": "1964" },
+    { "endpoint": "/en/results.html/1963/races.html", "label": "1963" },
+    { "endpoint": "/en/results.html/1962/races.html", "label": "1962" },
+    { "endpoint": "/en/results.html/1961/races.html", "label": "1961" },
+    { "endpoint": "/en/results.html/1960/races.html", "label": "1960" },
+    { "endpoint": "/en/results.html/1959/races.html", "label": "1959" },
+    { "endpoint": "/en/results.html/1958/races.html", "label": "1958" },
+    { "endpoint": "/en/results.html/1957/races.html", "label": "1957" },
+    { "endpoint": "/en/results.html/1956/races.html", "label": "1956" },
+    { "endpoint": "/en/results.html/1955/races.html", "label": "1955" },
+    { "endpoint": "/en/results.html/1954/races.html", "label": "1954" },
+    { "endpoint": "/en/results.html/1953/races.html", "label": "1953" },
+    { "endpoint": "/en/results.html/1952/races.html", "label": "1952" },
+    { "endpoint": "/en/results.html/1951/races.html", "label": "1951" },
+    { "endpoint": "/en/results.html/1950/races.html", "label": "1950" }
+  ],
+  "grandPrixs": [
+    {
+      "name": "All",
+      "year": "2022",
+      "dataEndpoint": "/en/results.html/2022/races.html"
+    },
+    {
+      "name": "Bahrain",
+      "year": "2022",
+      "dataEndpoint": "/en/results.html/2022/races/1124/bahrain/race-result.html"
+    },
+    {
+      "name": "Saudi Arabia",
+      "year": "2022",
+      "dataEndpoint": "/en/results.html/2022/races/1125/saudi-arabia/race-result.html"
+    },
+    {
+      "name": "Australia",
+      "year": "2022",
+      "dataEndpoint": "/en/results.html/2022/races/1108/australia/race-result.html"
+    },
+    {
+      "name": "Emilia Romagna",
+      "year": "2022",
+      "dataEndpoint": "/en/results.html/2022/races/1109/italy/race-result.html"
+    },
+    {
+      "name": "Miami ",
+      "year": "2022",
+      "dataEndpoint": "/en/results.html/2022/races/1110/miami/race-result.html"
+    },
+    {
+      "name": "Spain",
+      "year": "2022",
+      "dataEndpoint": "/en/results.html/2022/races/1111/spain/race-result.html"
+    },
+    {
+      "name": "Monaco",
+      "year": "2022",
+      "dataEndpoint": "/en/results.html/2022/races/1112/monaco/race-result.html"
+    },
+    {
+      "name": "Azerbaijan",
+      "year": "2022",
+      "dataEndpoint": "/en/results.html/2022/races/1126/azerbaijan/race-result.html"
+    },
+    {
+      "name": "Canada",
+      "year": "2022",
+      "dataEndpoint": "/en/results.html/2022/races/1113/canada/race-result.html"
+    },
+    {
+      "name": "Great Britain",
+      "year": "2022",
+      "dataEndpoint": "/en/results.html/2022/races/1114/great-britain/race-result.html"
+    },
+    {
+      "name": "Austria",
+      "year": "2022",
+      "dataEndpoint": "/en/results.html/2022/races/1115/austria/race-result.html"
+    },
+    {
+      "name": "France",
+      "year": "2022",
+      "dataEndpoint": "/en/results.html/2022/races/1116/france/race-result.html"
+    },
+    {
+      "name": "Hungary",
+      "year": "2022",
+      "dataEndpoint": "/en/results.html/2022/races/1117/hungary/race-result.html"
+    },
+    {
+      "name": "Belgium",
+      "year": "2022",
+      "dataEndpoint": "/en/results.html/2022/races/1118/belgium/race-result.html"
+    },
+    {
+      "name": "Netherlands",
+      "year": "2022",
+      "dataEndpoint": "/en/results.html/2022/races/1119/netherlands/race-result.html"
+    },
+    {
+      "name": "Italy",
+      "year": "2022",
+      "dataEndpoint": "/en/results.html/2022/races/1120/italy/race-result.html"
+    },
+    {
+      "name": "Singapore",
+      "year": "2022",
+      "dataEndpoint": "/en/results.html/2022/races/1133/singapore/race-result.html"
+    },
+    {
+      "name": "Japan",
+      "year": "2022",
+      "dataEndpoint": "/en/results.html/2022/races/1134/japan/race-result.html"
+    },
+    {
+      "name": "United States ",
+      "year": "2022",
+      "dataEndpoint": "/en/results.html/2022/races/1135/united-states/race-result.html"
+    },
+    {
+      "name": "Mexico",
+      "year": "2022",
+      "dataEndpoint": "/en/results.html/2022/races/1136/mexico/race-result.html"
+    },
+    {
+      "name": "Brazil",
+      "year": "2022",
+      "dataEndpoint": "/en/results.html/2022/races/1137/brazil/race-result.html"
+    },
+    {
+      "name": "Abu Dhabi",
+      "year": "2022",
+      "dataEndpoint": "/en/results.html/2022/races/1138/abu-dhabi/race-result.html"
+    }
+  ]
+}
