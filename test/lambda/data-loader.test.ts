@@ -18,7 +18,8 @@ describe('Testing Data Loader', () => {
 
   beforeEach(() => {
     process.env = { ... env };
-    process.env.ENDPOINT = '/en/results.html'
+    process.env.ENDPOINT = '/en/results.html';
+    process.env.F1_HOST = 'https://www.formula1.com';
   });
 
   afterEach(() => {
@@ -28,7 +29,7 @@ describe('Testing Data Loader', () => {
 
   test('Testing handler()', async () => {
     mock.onAny().reply(200, testPageData);
-    expect(await Testing.handler([{ endpoint: "/en/results.html/2022/races.html", label: "2022" }])).toBeUndefined();
+    expect(await Testing.handler([{ endpoint: '/en/results.html/2022/races.html', label: '2022' }])).toBeUndefined();
   });
 
   test('Testing retrieveGrandPrixs()', async () => {

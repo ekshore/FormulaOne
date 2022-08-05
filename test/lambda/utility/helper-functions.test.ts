@@ -18,6 +18,16 @@ beforeAll(() => {
   }
 });
 
+let env = process.env;
+beforeEach(() => {
+  process.env = { ... env };
+  process.env.F1_HOST = 'https://www.formula1.com';
+});
+
+afterEach(() => {
+  process.env = env;
+});
+
 describe('Testing helper functions', () => {
 
   test('Testing buildUrl()', () => {

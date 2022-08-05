@@ -19,6 +19,16 @@ beforeAll(() => {
   }
 });
 
+let env = process.env;
+beforeEach(() => {
+  process.env = { ... env };
+  process.env.F1_HOST = 'https://www.formula1.com';
+});
+
+afterEach(() => {
+  process.env = env;
+});
+
 describe('Testing data processing', () => {
   test('Test handler()', () => {
     const gp = { year: '2022', name: 'Bahrain', dataEndpoint: '/en/results.html/2022/races/1124/bahrain/race-result.html' };
