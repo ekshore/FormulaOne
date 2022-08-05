@@ -1,8 +1,6 @@
 const axios = require('axios');
 const cheerio = require('cheerio');
 
-const host = process.env.F1_HOST;
-
 export const buildUrl = (enpoint: string) => process.env.F1_HOST + enpoint;
 export const mapLinks = ($: any, selector: string, mapper: Function): Link[] => $('li', selector).map((_: number, i: any) => mapper($, i)).toArray();
 export const scrapeLinks = (pageData: string, selector: string, mapper: Function): Link[] => mapLinks(cheerio.load(pageData), selector, mapper);
