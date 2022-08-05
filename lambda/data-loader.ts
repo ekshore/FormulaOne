@@ -3,7 +3,9 @@ import { selectors } from './utility/selectors';
 
 export const handler = async (years?: Link[]) => {
   let seasons = years ?? await retrieveSeasons(process.env.ENDPOINT!);
-  const gps = seasons.map((season: Link) => retrieveGrandPrixs(season).then((value: GrandPrixLink[]) => console.log(value)));
+  const gps = seasons.map((season: Link) => retrieveGrandPrixs(season).then((value: GrandPrixLink[]) => {
+    //Call Async lambda for Grand Prix Processing
+  }));
   await Promise.all(gps);
 }
 
