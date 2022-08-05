@@ -3,7 +3,7 @@ interface Link {
   label: string;
 }
 
-interface GrandPrixEvent {
+interface GrandPrixLink {
   name: string;
   year: string;
   dataEndpoint: string;

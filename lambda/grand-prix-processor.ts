@@ -2,7 +2,7 @@ const cheerio = require('cheerio');
 import * as hf from './utility/helper-functions';
 import { selectors } from './utility/selectors';
 
-export const handler = async (gp: GrandPrixEvent) => {
+export const handler = async (gp: GrandPrixLink) => {
   const sessions = await retrieveSessions(gp.dataEndpoint);
   const dataPromises = sessions.map((session: Promise<any>) => session.then(s => sessionProcessor(s)));
   let gpData = { year: gp.year, name: gp.name, data: await Promise.all(dataPromises) }

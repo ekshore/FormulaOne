@@ -3,11 +3,11 @@ import { selectors } from './utility/selectors';
 
 export const handler = async (years?: Link[]) => {
   let seasons = years ?? await retrieveSeasons(process.env.ENDPOINT!);
-  const gps = seasons.map((season: Link) => retrieveGrandPrixs(season).then((value: GrandPrixEvent[]) => console.log(value)));
+  const gps = seasons.map((season: Link) => retrieveGrandPrixs(season).then((value: GrandPrixLink[]) => console.log(value)));
   await Promise.all(gps);
 }
 
-const retrieveGrandPrixs = async (year: Link): Promise<GrandPrixEvent[]> => {
+const retrieveGrandPrixs = async (year: Link): Promise<GrandPrixLink[]> => {
   const gps = hf.scrapeLinks(await hf.makeRequest(year.endpoint), selectors.dataSet, hf.linkMapper);
   return gps.map((gp: Link) => { 
     return {
