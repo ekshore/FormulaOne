@@ -2,16 +2,19 @@ const fs = require('fs');
 const path = require('path');
 const cheerio = require('cheerio');
 
+import axios from 'axios';
+import MockAdapter from 'axios-mock-adapter';
 import { selectors } from './../../lambda/utility/selectors';
 import { Testing } from '../../lambda/grand-prix-processor';
 
 let $testData: any;
+let sessionData: string;
 let $sessionData: any;
 
 beforeAll(() => {
   try {
     let testData = fs.readFileSync(path.join(__dirname, '../resources/test-page.txt').toString()).toString();
-    let sessionData = fs.readFileSync(path.join(__dirname, '../resources/session-data.txt').toString()).toString();
+    sessionData = fs.readFileSync(path.join(__dirname, '../resources/session-data.txt').toString()).toString();
     $testData = cheerio.load(testData);
     $sessionData = cheerio.load(sessionData);
   } catch (err) {
@@ -20,23 +23,30 @@ beforeAll(() => {
 });
 
 let env = process.env;
+let mock: MockAdapter;
 beforeEach(() => {
   process.env = { ... env };
   process.env.F1_HOST = 'https://www.formula1.com';
+  mock = new MockAdapter(axios);
 });
 
 afterEach(() => {
   process.env = env;
+  mock.reset();
 });
+
+afterAll(() => mock.restore());
 
 describe('Testing data processing', () => {
   test('Test handler()', () => {
+    mock.onAny().reply(200, sessionData);
     const gp = { year: '2022', name: 'Bahrain', dataEndpoint: '/en/results.html/2022/races/1124/bahrain/race-result.html' };
     const result = Testing.handler(gp);
     expect(result).resolves.not.toBe({ year: undefined, name: undefined, data: undefined });
   });
 
   test('Test processor()', async () => {
+    mock.onAny().reply(200, sessionData);
     const sessions = await Testing.retrieveSessions('/en/results.html/2022/races/1124/bahrain/race-result.html');
     const result = await Testing.processor(sessions);
     expect(result.length).toEqual(8);
@@ -47,6 +57,7 @@ describe('Testing data processing', () => {
 
 describe('Data Retrieval', () => {
   test('Test retrieveSessions()', async () => {
+    mock.onAny().reply(200, sessionData);
     const resultPromise = await Testing.retrieveSessions('/en/results.html/2022/races/1124/bahrain/race-result.html');
     expect(resultPromise.length).toEqual(8);
   })

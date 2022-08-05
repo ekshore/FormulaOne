@@ -24,8 +24,10 @@ describe('Testing Data Loader', () => {
 
   afterEach(() => {
     process.env = env;
-    mock.reset
+    mock.reset();
   });
+
+  afterAll(() => mock.restore());
 
   test('Testing handler()', async () => {
     mock.onAny().reply(200, testPageData);
