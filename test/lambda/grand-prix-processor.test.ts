@@ -38,20 +38,21 @@ afterEach(() => {
 afterAll(() => mock.restore());
 
 describe('Testing data processing', () => {
-  test('Test handler()', () => {
+  test('Test handler()', async () => {
     mock.onAny().reply(200, sessionData);
     const gp = { year: '2022', name: 'Bahrain', dataEndpoint: '/en/results.html/2022/races/1124/bahrain/race-result.html' };
-    const result = Testing.handler(gp);
-    expect(result).resolves.not.toBe({ year: undefined, name: undefined, data: undefined });
+    const result = await Testing.handler(gp);
+    // expect(result).resolves.not.toBe({ year: undefined, name: undefined, data: undefined });
+    expect(result.data.length).toEqual(8);
+    expect(result.data[0].data.length).toEqual(20);
+    expect(result.data[0].session).toBe('race-result');
   });
 
-  test('Test processor()', async () => {
-    mock.onAny().reply(200, sessionData);
-    const sessions = await Testing.retrieveSessions('/en/results.html/2022/races/1124/bahrain/race-result.html');
-    const result = await Testing.processor(sessions);
-    expect(result.length).toEqual(8);
-    expect(result[0].data.length).toEqual(20);
-    expect(result[0].session).toBe('race-result')
+  test('Test sessionProcessor()', async () => {
+    const session = { label: 'race-results', data: sessionData };
+    const result = Testing.sessionProcessor(session);
+    expect(result.session).toEqual('race-results');
+    expect(result.data.length).toBe(20);
   });
 });
 

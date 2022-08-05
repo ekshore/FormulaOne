@@ -4,26 +4,20 @@ import { selectors } from './utility/selectors';
 
 export const handler = async (gp: GrandPrixEvent) => {
   const sessions = await retrieveSessions(gp.dataEndpoint);
-  const data = await processor(sessions);
-  let gpData = { year: gp.year, name: gp.name, data: data }
+  const dataPromises = sessions.map((session: Promise<any>) => session.then(s => sessionProcessor(s)));
+  let gpData = { year: gp.year, name: gp.name, data: await Promise.all(dataPromises) }
   return gpData;
 }
 
-const processor = async (sessions: Promise<any>[]): Promise<any> => {
-  let sessionResults = sessions.map((session: Promise<any>) => {
-    return session.then(session => {
-      // console.log('Processing data for session:', session.label);
-      let $session = cheerio.load(session.data);
-      const headers = buildHeaders($session, selectors.sessionData);
-      let sessionData = $session('tbody > tr', selectors.sessionData).toArray().map((row: any)=> mapData($session, row, headers));
-      return { session: session.label, data: sessionData };
-    }).catch(err => console.error('An error occured during session processing:', err));
-  });
-  const data = await Promise.all(sessionResults);
-  return data;
+const sessionProcessor = (session: any): any => {
+  let $session = cheerio.load(session.data);
+  const headers = buildHeaders($session, selectors.sessionData);
+  const sessionData = $session('tbody > tr', selectors.sessionData).toArray()
+    .map((row: any) => mapData($session, row, headers));
+  return { session: session.label, data: sessionData };
 }
 
-const retrieveSessions = async (endpoint: string) => {
+const retrieveSessions = async (endpoint: string): Promise<Promise<any>[]> => {
   const sessionLinks = hf.scrapeLinks(await hf.makeRequest(endpoint), selectors.session, hf.dataSetLinkMapper);
   return sessionLinks.filter((link: Link) => link.label !== undefined)
     .map(async (sessionLink: Link, i: number, _: Link[]) => { return { label: sessionLink.label, data: await hf.makeRequest(sessionLink.endpoint) }});
@@ -57,7 +51,7 @@ const mapData = ($row: any, row: any, headers: string[]) => {
 
 export const Testing = {
   handler,
-  processor,
+  sessionProcessor,
   retrieveSessions,
   buildHeaders,
   mapData,
