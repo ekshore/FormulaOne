@@ -12,7 +12,7 @@ export const handler = async (gp: GrandPrixLink) => {
 }
 
 const sessionProcessor = (session: any): Session => {
-  let $session = cheerio.load(session.data);
+  let $session = cheerio.load(session.pageData);
   const headers = buildHeaders($session, selectors.sessionData);
   const sessionData = $session('tbody > tr', selectors.sessionData).toArray()
     .map((row: any) => mapData($session, row, headers));

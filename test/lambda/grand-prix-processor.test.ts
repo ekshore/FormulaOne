@@ -49,7 +49,7 @@ describe('Testing data processing', () => {
   });
 
   test('Test sessionProcessor()', async () => {
-    const session = { label: 'race-results', data: sessionData };
+    const session = { label: 'race-results', pageData: sessionData };
     const result = Testing.sessionProcessor(session);
     expect(result.name).toEqual('race-results');
     expect(result.data.length).toBe(20);
