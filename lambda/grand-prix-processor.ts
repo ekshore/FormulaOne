@@ -2,12 +2,13 @@ const cheerio = require('cheerio');
 import * as hf from './utility/helper-functions';
 import { selectors } from './utility/selectors';
 
-type Session = { name: string, data: any [] }
+type GrandPrixData = { name: string, year: string, sessions: Session[] }
+type Session = { name: string, data: { Driver: { firstName: string, lastName: string, abbr: string }, Number: string, Stops?: string } [] }
 
-export const handler = async (gp: GrandPrixLink) => {
+export const handler = async (gp: GrandPrixLink): Promise<GrandPrixData> => {
   const sessions = await retrieveSessions(gp.dataEndpoint);
   const dataPromises = sessions.map(session => session.then(s => sessionProcessor(s)));
-  let gpData = { year: gp.year, grandPrix: gp.name, sessions: await Promise.all(dataPromises) }
+  let gpData = { year: gp.year, name: gp.name, sessions: await Promise.all(dataPromises) }
   return gpData;
 }
 

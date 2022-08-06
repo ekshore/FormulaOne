@@ -1,15 +1,15 @@
-interface Link {
+type Link = {
   endpoint: string;
   label: string;
 }
 
-interface GrandPrixLink {
+type GrandPrixLink = {
   name: string;
   year: string;
   dataEndpoint: string;
 }
 
-interface SessionEvent {
+type SessionEvent = {
   name: string;
   year: string;
   grandPrix: string;
