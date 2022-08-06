@@ -2,25 +2,27 @@ const cheerio = require('cheerio');
 import * as hf from './utility/helper-functions';
 import { selectors } from './utility/selectors';
 
+type Session = { name: string, data: any [] }
+
 export const handler = async (gp: GrandPrixLink) => {
   const sessions = await retrieveSessions(gp.dataEndpoint);
-  const dataPromises = sessions.map((session: Promise<any>) => session.then(s => sessionProcessor(s)));
-  let gpData = { year: gp.year, name: gp.name, data: await Promise.all(dataPromises) }
+  const dataPromises = sessions.map(session => session.then(s => sessionProcessor(s)));
+  let gpData = { year: gp.year, grandPrix: gp.name, sessions: await Promise.all(dataPromises) }
   return gpData;
 }
 
-const sessionProcessor = (session: any): any => {
+const sessionProcessor = (session: any): Session => {
   let $session = cheerio.load(session.data);
   const headers = buildHeaders($session, selectors.sessionData);
   const sessionData = $session('tbody > tr', selectors.sessionData).toArray()
     .map((row: any) => mapData($session, row, headers));
-  return { session: session.label, data: sessionData };
+  return { name: session.label, data: sessionData };
 }
 
-const retrieveSessions = async (endpoint: string): Promise<Promise<any>[]> => {
+const retrieveSessions = async (endpoint: string): Promise<Promise<{ label: string, pageData: string}>[]> => {
   const sessionLinks = hf.scrapeLinks(await hf.makeRequest(endpoint), selectors.session, hf.dataSetLinkMapper);
   return sessionLinks.filter((link: Link) => link.label !== undefined)
-    .map(async (sessionLink: Link, i: number, _: Link[]) => { return { label: sessionLink.label, data: await hf.makeRequest(sessionLink.endpoint) }});
+    .map(async (sessionLink: Link, i: number, _: Link[]) => { return { label: sessionLink.label, pageData: await hf.makeRequest(sessionLink.endpoint) }});
 }
 
 const buildHeaders = ($: any, contextSelector: string): string[] => {
