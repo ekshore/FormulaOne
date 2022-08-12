@@ -7,9 +7,9 @@ export class FormulaOneStack extends Stack {
     super(scope, id, props);
     
     const raceTable = new dynamo.Table(this, 'raceData', {
-      partitionKey : { name : 'grandPrix#driver', type : dynamo.AttributeType.STRING },
-      sortKey : { name : 'year#session', type : dynamo.AttributeType.STRING },
-      tableName : 'raceData',
+      partitionKey : { name : 'year_grandPrix', type : dynamo.AttributeType.STRING },
+      sortKey : { name : 'session_driver', type : dynamo.AttributeType.STRING },
+      tableName : 'race-data-table',
       removalPolicy : RemovalPolicy.DESTROY
     });
   }
