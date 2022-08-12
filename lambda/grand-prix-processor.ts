@@ -2,14 +2,46 @@ const cheerio = require('cheerio');
 import * as hf from './utility/helper-functions';
 import { selectors } from './utility/selectors';
 
+import * as dynamo from '@aws-sdk/client-dynamodb';
+import { BatchWriteItemCommand } from '@aws-sdk/client-dynamodb';
+
 type GrandPrixData = { name: string, year: string, sessions: Session[] }
-type Session = { name: string, data: { Driver: { firstName: string, lastName: string, abbr: string }, Number: string, Stops?: string } [] }
+type Session = { name: string, data: SessionData [] }
+type SessionData = { Driver: { firstName: string, lastName: string, abbr: string }, Number: string, Stops?: string, [key: string]: any}
 
 export const handler = async (gp: GrandPrixLink): Promise<GrandPrixData> => {
   const sessions = await retrieveSessions(gp.dataEndpoint);
   const dataPromises = sessions.map(session => session.then(s => sessionProcessor(s)));
   let gpData = { year: gp.year, name: gp.name, sessions: await Promise.all(dataPromises) }
   return gpData;
+}
+
+const client = new dynamo.DynamoDBClient({ region: 'us-east-2' })
+
+const storeSession = async (session: Session, grandPrix: string, year: string) => {
+  const items: dynamo.WriteRequest[] = session.data.map((entry: SessionData) => {
+    const item = Object.keys(entry).reduce(mapWriteRequest(entry, grandPrix, year, session.name), {});
+    return { PutRequest: { Item: item} };
+  });
+  const command = new BatchWriteItemCommand({
+    RequestItems: {
+      'race-data-table': items
+    }
+  });
+  console.log(command);
+}
+
+const mapWriteRequest = (data: SessionData, grandPrix: string, year: string, sessionName: string) =>
+    (item: Record<string, dynamo.AttributeValue>, key: string, ): Record<string, dynamo.AttributeValue> => {
+  if (key !== 'Driver') item[`${key}`] = { 'S' : `${data[key]}`};
+  else item[`${key}`] = { 'M' : {
+    'firstName' : { 'S' : data.Driver.firstName }, 
+    'lastName' : { 'S' : data.Driver.lastName}, 
+    'abbr' : { 'S' : data.Driver.abbr}
+  }};
+  item['year_grandPrix'] = { 'S' : `${year}#${grandPrix}` };
+  item['session_driver'] = { 'S' : `${sessionName}#${data.Driver.firstName}_${data.Driver.lastName}}`};
+  return item;
 }
 
 const sessionProcessor = (session: any): Session => {
@@ -54,6 +86,7 @@ const mapData = ($row: any, row: any, headers: string[]) => {
 
 export const Testing = {
   handler,
+  mapWriteRequest,
   sessionProcessor,
   retrieveSessions,
   buildHeaders,

@@ -55,6 +55,37 @@ describe('Testing data processing', () => {
   });
 });
 
+describe('Test Data storage', () => {
+  let data: any;
+  const item = {
+    Position: { S: '1' },
+    year_grandPrix: { S: '2022#Bahrain' },
+    session_driver: { S: 'race-results#Charles_Leclerc}' },
+    Number: { S: '16' },
+    Driver: { 
+      M: {
+        firstName: { S: 'Charles' },
+        lastName: { S: 'Leclerc' },
+        abbr: { S: 'LEC' }
+      }
+    },
+    Car: { S: 'Ferrari' },
+    Laps: { S: '57' },
+    'Time/Retired': { S: '1:37:33.584' },
+    Points: { S: '26' }
+  }
+
+  beforeAll(() => {
+    data = Testing.sessionProcessor({ label: 'race-results', pageData: sessionData });
+  });
+
+  test('Test mapWriteRequest()', async () => {
+    const mappingFn = Testing.mapWriteRequest(data.data[0], 'Bahrain', '2022', data.name);
+    const result = Object.keys(data.data[0]).reduce(mappingFn, {});
+    expect(result).toEqual(item);
+  });
+});
+
 describe('Data Retrieval', () => {
   test('Test retrieveSessions()', async () => {
     mock.onAny().reply(200, sessionData);
