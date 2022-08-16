@@ -6,9 +6,11 @@ import { Testing } from './../../lambda/data-loader';
 
 
 var testPageData: string;
+var testPageOneYearData: string;
 var testData: any;
 beforeAll(() => {
   testPageData = fs.readFileSync(path.join(__dirname, '../resources/test-page.txt').toString()).toString();
+  testPageOneYearData = fs.readFileSync(path.join(__dirname, '../resources/test-page-one-year.txt').toString()).toString();
   testData = JSON.parse(fs.readFileSync(path.join(__dirname, '../resources/test-data.json').toString()).toString());
 });
 
@@ -29,10 +31,16 @@ describe('Testing Data Loader', () => {
 
   afterAll(() => mock.restore());
 
-  test('Testing handler()', async () => {
+  test('Testing handler() with one year', async () => {
     mock.onAny().reply(200, testPageData);
-    expect(await Testing.handler([{ endpoint: '/en/results.html/2022/races.html', label: '2022' }])).toBeUndefined();
+    await Testing.handler([{ endpoint: '/en/results.html/2022/races.html', label: '2022' }])
   });
+
+  test('Testing handler() with no year specified', async () => {
+    mock.onAny().reply(200, testPageOneYearData);
+    await Testing.handler();
+    expect(await Testing.handler());
+  })
 
   test('Testing retrieveGrandPrixs()', async () => {
     mock.onAny().reply(200, testPageData);
