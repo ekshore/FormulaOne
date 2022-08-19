@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 import 'source-map-support/register';
 import * as cdk from 'aws-cdk-lib';
-import { FormulaOneStack } from '../lib/formula_one-stack';
+import { FormulaOneDataLoadStack } from '../lib/formula-one-data-load-stack';
 
 const app = new cdk.App();
-new FormulaOneStack(app, 'FormulaOneStack', {
+new FormulaOneDataLoadStack(app, 'FormulaOneDataLoadStack', {
   /* If you don't specify 'env', this stack will be environment-agnostic.
    * Account/Region-dependent features and context lookups will not work,
    * but a single synthesized template can be deployed anywhere. */
