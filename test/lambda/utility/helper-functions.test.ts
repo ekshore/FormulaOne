@@ -1,18 +1,20 @@
-import { readFileSync } from "fs";
-import * as path from "path";
-const cheerio = require("cheerio");
+import { readFileSync } from 'fs';
+import * as path from 'path';
+import axios from 'axios';
+import MockAdapter from 'axios-mock-adapter';
+const cheerio = require('cheerio');
 
 const sourceDir = path.join(__dirname, './../../../lambda/utility');
 
 const helperFunctions = require(path.join(sourceDir, 'helper-functions.ts'));
 const selectors = require(path.join(sourceDir, 'selectors.ts'));
 
-let pageData: String;
+let testPage: String;
 let $: any;
 beforeAll(() => {
   try {
-    pageData = readFileSync(path.join(__dirname, '../../resources/test-page.txt').toString()).toString();
-    $ = cheerio.load(pageData);
+    testPage = readFileSync(path.join(__dirname, '../../resources/test-page.txt').toString()).toString();
+    $ = cheerio.load(testPage);
   } catch (err) { 
     console.log('ErrorLoading test data from file', err);
   }
@@ -54,7 +56,7 @@ describe('Testing helper functions', () => {
       { endpoint: '/en/results.html/2022/team.html', label: 'Teams' },
       { endpoint: '/en/results.html/2022/fastest-laps.html', label: 'DHL FASTEST LAP AWARD' }
     ];
-    const result = helperFunctions.scrapeLinks(pageData, selectors.selectors.category, helperFunctions.linkMapper);
+    const result = helperFunctions.scrapeLinks(testPage, selectors.selectors.category, helperFunctions.linkMapper);
     expect(result).toEqual(expected);
   });
 });
@@ -78,5 +80,23 @@ describe('Testing link mappers', () => {
     }
     const result = helperFunctions.dataSetLinkMapper($, li);
     expect(result).toEqual(expectedResult);
+  });
+});
+
+describe('Testing makeRequest()', () => {
+  let mock: MockAdapter;
+
+  beforeAll(() => {
+    mock = new MockAdapter(axios);
+  });
+
+  afterEach(() => {
+    mock.reset();
+  });
+
+  test('Testing makeRequest()', async () => {
+    mock.onAny().reply(200, testPage);
+    const result = await helperFunctions.makeRequest('/en/results.html/2021/races/1064/bahrain/race-result.html');
+    expect(result).toEqual(testPage);
   });
 });

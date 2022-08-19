@@ -1,4 +1,4 @@
-const axios = require('axios');
+import axios from 'axios';
 const cheerio = require('cheerio');
 
 export const buildUrl = (enpoint: string) => process.env.F1_HOST + enpoint;
@@ -10,7 +10,8 @@ export const linkMapper = ($: any, li: any): Link => ({ endpoint: $('a', li).att
 
 export async function makeRequest(endpoint: string) {
   let { data } = await axios.get(buildUrl(endpoint)).catch((err: any) => {
-    console.log(`Recieved ${err.message} when making http requets for ${endpoint}`);
+    console.log(`Recieved '${err.message}' when making http requets for ${endpoint}`);
+    console.log(err);
     throw err;
   });
   return data;
