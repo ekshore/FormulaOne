@@ -4,7 +4,7 @@
 
 // example test. To run these tests, uncomment this file along with the
 // example resource in lib/formula_one-stack.ts
-test('SQS Queue Created', () => {
+test.skip('SQS Queue Created', () => {
 //   const app = new cdk.App();
 //     // WHEN
 //   const stack = new FormulaOne.FormulaOneStack(app, 'MyTestStack');

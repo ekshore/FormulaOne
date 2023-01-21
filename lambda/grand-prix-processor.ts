@@ -9,16 +9,19 @@ type GrandPrixData = { name: string, year: string, sessions: Session[] }
 type Session = { name: string, data: SessionData [] }
 type SessionData = { Driver: { firstName: string, lastName: string, abbr: string }, Number: string, Stops?: string, [key: string]: any}
 
-export const handler = async (gp: GrandPrixLink): Promise<GrandPrixData> => {
+export const handler = async (gp: GrandPrixLink) => {
   const sessions = await retrieveSessions(gp.dataEndpoint);
   const dataPromises = sessions.map(session => session.then(s => sessionProcessor(s)));
+  const storePromises = dataPromises.map(promise => promise.then(session => storeSession(session, gp.name, gp.year)));
+  await Promise.all(storePromises);
   let gpData = { year: gp.year, name: gp.name, sessions: await Promise.all(dataPromises) }
   return gpData;
 }
 
-const client = new dynamo.DynamoDBClient({ region: 'us-east-2' })
+const client = new dynamo.DynamoDBClient({ region: 'us-east-2' });
 
 const storeSession = async (session: Session, grandPrix: string, year: string) => {
+  // console.log("Storing session data for Session: ", session.name);
   const items: dynamo.WriteRequest[] = session.data.map((entry: SessionData) => {
     const item = Object.keys(entry).reduce(mapWriteRequest(entry, grandPrix, year, session.name), {});
     return { PutRequest: { Item: item} };
@@ -28,7 +31,9 @@ const storeSession = async (session: Session, grandPrix: string, year: string) =
       'race-data-table': items
     }
   });
-  console.log(command);
+
+  // console.log(items);
+  await client.send(command);
 }
 
 const mapWriteRequest = (data: SessionData, grandPrix: string, year: string, sessionName: string) =>

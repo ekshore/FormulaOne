@@ -1,4 +1,4 @@
-import { Stack, StackProps, RemovalPolicy } from 'aws-cdk-lib';
+import { Stack, StackProps, RemovalPolicy, Duration } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 import * as dynamo from 'aws-cdk-lib/aws-dynamodb';
 import * as lambda from 'aws-cdk-lib/aws-lambda';
@@ -22,7 +22,13 @@ export class FormulaOneDataLoadStack extends Stack {
       functionName: 'grand-prix-processor',
       runtime: lambda.Runtime.NODEJS_16_X,
       entry: './lambda/grand-prix-processor.ts',
-      handler: 'handler'
+      handler: 'handler',
+      timeout: Duration.minutes(1),
+      environment: {
+        F1_HOST: 'https://www.formula1.com'
+      }
     });
+
+    raceTable.grantWriteData(grandPrixProcessor);
   }
 }
