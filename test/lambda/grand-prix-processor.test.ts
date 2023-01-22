@@ -2,6 +2,8 @@ const fs = require('fs');
 const path = require('path');
 const cheerio = require('cheerio');
 
+import { mockClient } from 'aws-sdk-client-mock';
+import { BatchWriteItemCommand, DynamoDBClient } from '@aws-sdk/client-dynamodb';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import { selectors } from './../../lambda/utility/selectors';
@@ -24,10 +26,13 @@ beforeAll(() => {
 
 let env = process.env;
 let mock: MockAdapter;
+const dynamoMock = mockClient(DynamoDBClient);
+
 beforeEach(() => {
   process.env = { ... env };
   process.env.F1_HOST = 'https://www.formula1.com';
   mock = new MockAdapter(axios);
+  dynamoMock.reset();
 });
 
 afterEach(() => {
@@ -38,6 +43,11 @@ afterEach(() => {
 afterAll(() => mock.restore());
 
 describe('Testing data processing', () => {
+  
+  beforeEach(() => {
+    dynamoMock.on(BatchWriteItemCommand).resolves({});
+  });
+
   test('Test handler()', async () => {
     mock.onAny().reply(200, sessionData);
     const gp = { year: '2022', name: 'Bahrain', dataEndpoint: '/en/results.html/2022/races/1124/bahrain/race-result.html' };
@@ -60,7 +70,7 @@ describe('Test Data storage', () => {
   const item = {
     Position: { S: '1' },
     year_grandPrix: { S: '2022#Bahrain' },
-    session_driver: { S: 'race-results#Charles_Leclerc}' },
+    session_driver: { S: 'race-results#Charles_Leclerc' },
     Number: { S: '16' },
     Driver: { 
       M: {

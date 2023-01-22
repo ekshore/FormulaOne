@@ -5,7 +5,7 @@ import { selectors } from './utility/selectors';
 import * as dynamo from '@aws-sdk/client-dynamodb';
 import { BatchWriteItemCommand } from '@aws-sdk/client-dynamodb';
 
-type GrandPrixData = { name: string, year: string, sessions: Session[] }
+type GrandPrixData = { name: string, year: string, }
 type Session = { name: string, data: SessionData [] }
 type SessionData = { Driver: { firstName: string, lastName: string, abbr: string }, Number: string, Stops?: string, [key: string]: any}
 
@@ -30,10 +30,8 @@ const storeSession = async (session: Session, grandPrix: string, year: string) =
       'race-data-table': itemBatch
     }
   }));
-  const commandPromises = commands.map(command => {
-    console.log(JSON.stringify(command));
-    return client.send(command).catch(err => console.log("Error: ", JSON.stringify(command)));
-  })
+  const commandPromises = commands.map(command => client.send(command)
+    .catch(err => console.log({ Error: err, payload: JSON.stringify(command) })));
   await Promise.all(commandPromises);
 }
 

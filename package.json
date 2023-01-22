@@ -15,6 +15,7 @@
     "@types/node": "10.17.27",
     "@types/prettier": "2.6.0",
     "aws-cdk": "2.50.0",
+    "aws-sdk-client-mock": "^2.0.1",
     "axios-mock-adapter": "^1.21.1",
     "jest": "^27.5.1",
     "ts-jest": "^27.1.4",
