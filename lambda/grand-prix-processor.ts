@@ -21,19 +21,28 @@ export const handler = async (gp: GrandPrixLink) => {
 const client = new dynamo.DynamoDBClient({ region: 'us-east-2' });
 
 const storeSession = async (session: Session, grandPrix: string, year: string) => {
-  // console.log("Storing session data for Session: ", session.name);
   const items: dynamo.WriteRequest[] = session.data.map((entry: SessionData) => {
     const item = Object.keys(entry).reduce(mapWriteRequest(entry, grandPrix, year, session.name), {});
     return { PutRequest: { Item: item} };
   });
-  const command = new BatchWriteItemCommand({
+  const commands = batchRequests(items).map(itemBatch => new BatchWriteItemCommand({
     RequestItems: {
-      'race-data-table': items
+      'race-data-table': itemBatch
     }
-  });
+  }));
+  const commandPromises = commands.map(command => {
+    console.log(JSON.stringify(command));
+    return client.send(command).catch(err => console.log("Error: ", JSON.stringify(command)));
+  })
+  await Promise.all(commandPromises);
+}
 
-  // console.log(items);
-  await client.send(command);
+const batchRequests = (requests: dynamo.WriteRequest[]) => {
+  let batches = [];
+  for (let i = 0; i < requests.length; i += 25) {
+    batches.push(requests.splice(i, i + 25));
+  }
+  return batches;
 }
 
 const mapWriteRequest = (data: SessionData, grandPrix: string, year: string, sessionName: string) =>
@@ -45,7 +54,7 @@ const mapWriteRequest = (data: SessionData, grandPrix: string, year: string, ses
     'abbr' : { 'S' : data.Driver.abbr}
   }};
   item['year_grandPrix'] = { 'S' : `${year}#${grandPrix}` };
-  item['session_driver'] = { 'S' : `${sessionName}#${data.Driver.firstName}_${data.Driver.lastName}}`};
+  item['session_driver'] = { 'S' : `${sessionName}#${data.Driver.firstName}_${data.Driver.lastName}${data.Stops ? '#' + data.Stops : ''}`};
   return item;
 }
 
