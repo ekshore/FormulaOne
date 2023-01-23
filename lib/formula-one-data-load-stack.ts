@@ -29,6 +29,21 @@ export class FormulaOneDataLoadStack extends Stack {
       }
     });
 
+    const dataLoader = new NodejsFunction(this, 'data-loader', {
+      functionName: 'data-loader',
+      runtime: lambda.Runtime.NODEJS_16_X,
+      entry: './lambda/data-loader.ts',
+      handler: 'handler',
+      timeout: Duration.minutes(1),
+      environment: {
+        F1_HOST: 'https://www.formula1.com',
+        ENDPOINT: '/en/results.html',
+        GP_PROCESSING_FUNC: grandPrixProcessor.functionName
+      }
+    });
+
+    grandPrixProcessor.grantInvoke(dataLoader);
+
     raceTable.grantWriteData(grandPrixProcessor);
   }
 }

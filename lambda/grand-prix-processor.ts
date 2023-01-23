@@ -5,9 +5,8 @@ import { selectors } from './utility/selectors';
 import * as dynamo from '@aws-sdk/client-dynamodb';
 import { BatchWriteItemCommand } from '@aws-sdk/client-dynamodb';
 
-type GrandPrixData = { name: string, year: string, }
 type Session = { name: string, data: SessionData [] }
-type SessionData = { Driver: { firstName: string, lastName: string, abbr: string }, Number: string, Stops?: string, [key: string]: any}
+type SessionData = { Driver: { firstName: string, lastName: string, abbr: string }, Number: string, Stops?: string, [key: string]: any }
 
 export const handler = async (gp: GrandPrixLink) => {
   const sessions = await retrieveSessions(gp.dataEndpoint);
@@ -48,11 +47,11 @@ const mapWriteRequest = (data: SessionData, grandPrix: string, year: string, ses
   if (key !== 'Driver') item[`${key}`] = { 'S' : `${data[key]}`};
   else item[`${key}`] = { 'M' : {
     'firstName' : { 'S' : data.Driver.firstName }, 
-    'lastName' : { 'S' : data.Driver.lastName}, 
-    'abbr' : { 'S' : data.Driver.abbr}
+    'lastName' : { 'S' : data.Driver.lastName }, 
+    'abbr' : { 'S' : data.Driver.abbr }
   }};
   item['year_grandPrix'] = { 'S' : `${year}#${grandPrix}` };
-  item['session_driver'] = { 'S' : `${sessionName}#${data.Driver.firstName}_${data.Driver.lastName}${data.Stops ? '#' + data.Stops : ''}`};
+  item['session_driver'] = { 'S' : `${sessionName}#${data.Driver.firstName}_${data.Driver.lastName}${data.Stops ? '#' + data.Stops : '' }` };
   return item;
 }
 
