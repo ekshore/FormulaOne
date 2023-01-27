@@ -7,13 +7,13 @@ const lambdaClient = new LambdaClient({ region: 'us-east-2' });
 export const handler = async (years?: Link[]) => {
   let seasons = years ?? await retrieveSeasons(process.env.ENDPOINT!);
   const gps = seasons.map((season: Link) => retrieveGrandPrixs(season).then((grandPrixs: GrandPrixLink[]) => {
-    const commands = grandPrixs.map(gp => new InvokeCommand({
-      FunctionName: process.env.GP_PROCESSING_FUNC,
-      InvocationType: 'Event',
-      Payload: JSON.stringify(gp)
-    }));
-    console.log(JSON.stringify(commands));
-    return commands.map(command => lambdaClient.send(command));
+    // const commands = grandPrixs.map(gp => new InvokeCommand({
+    //   FunctionName: process.env.GP_PROCESSING_FUNC,
+    //   InvocationType: 'Event',
+    //   Payload: JSON.stringify(gp)
+    // }));
+    // console.log(JSON.stringify(commands));
+    // return commands.map(command => lambdaClient.send(command));
   }))
   await Promise.all(gps);
 }
