@@ -97,6 +97,7 @@ const mapData = ($row: any, row: any, headers: string[]) => {
 
 export const Testing = {
   handler,
+  storeSession,
   mapWriteRequest,
   sessionProcessor,
   retrieveSessions,

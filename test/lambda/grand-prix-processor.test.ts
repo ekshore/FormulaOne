@@ -57,6 +57,15 @@ describe('Testing data processing', () => {
     expect(result.sessions[0].name).toBe('race-result');
   });
 
+  test('Test storeSession() Failure', async () => {
+    dynamoMock.on(BatchWriteItemCommand).rejects();
+    const session = { name: 'Q1', data: [ 
+      { Driver: { firstName: 'Max', lastName: 'Verstappen', abbr: 'ver' }, Number: '1', Car: 'RedBull', Laps: 57 }
+    ] };
+    const result = Testing.storeSession(session, 'Bahrain', '2022');
+    expect(result).rejects;
+  });
+
   test('Test sessionProcessor()', async () => {
     const session = { label: 'race-results', pageData: sessionData };
     const result = Testing.sessionProcessor(session);
