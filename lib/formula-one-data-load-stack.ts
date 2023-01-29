@@ -3,15 +3,18 @@ import { Construct } from 'constructs';
 import * as dynamo from 'aws-cdk-lib/aws-dynamodb';
 import * as lambda from 'aws-cdk-lib/aws-lambda';
 import { NodejsFunction } from 'aws-cdk-lib/aws-lambda-nodejs';
-import * as sqs from 'aws-cdk-lib/aws-sqs';
-import * as path from 'path';
+import * as sns from 'aws-cdk-lib/aws-sns';
+import * as subscriptions from 'aws-cdk-lib/aws-sns-subscriptions';
 
 export class FormulaOneDataLoadStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props);
     
-    const lambdaDir = path.join(__dirname, './../lambda/');
-    
+    const grandPrixTopic = new sns.Topic(this, 'grand-prix-topic', {
+      topicName: 'grand-prix-topic',
+      displayName: 'grand-prix-topic'
+    });
+
     const dataLoader = new NodejsFunction(this, 'data-loader', {
       functionName: 'data-loader',
       runtime: lambda.Runtime.NODEJS_16_X,
@@ -21,7 +24,7 @@ export class FormulaOneDataLoadStack extends Stack {
       environment: {
         F1_HOST: 'https://www.formula1.com',
         ENDPOINT: '/en/results.html',
-        // GP_PROCESSING_FUNC: grandPrixProcessor.functionName
+        GP_TOPIC_ARN: grandPrixTopic.topicArn
       }
     });
 
@@ -35,6 +38,9 @@ export class FormulaOneDataLoadStack extends Stack {
         F1_HOST: 'https://www.formula1.com'
       }
     });
+
+    grandPrixTopic.grantPublish(dataLoader);
+    grandPrixTopic.addSubscription(new subscriptions.LambdaSubscription(grandPrixProcessor));
 
     grandPrixProcessor.grantInvoke(dataLoader);
 

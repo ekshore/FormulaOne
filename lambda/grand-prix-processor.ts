@@ -6,15 +6,22 @@ import * as dynamo from '@aws-sdk/client-dynamodb';
 import { BatchWriteItemCommand } from '@aws-sdk/client-dynamodb';
 
 type Session = { name: string, data: SessionData [] }
-type SessionData = { Driver: { firstName: string, lastName: string, abbr: string }, Number: string, Stops?: string, [key: string]: any }
+type SessionData = { 
+  Driver: { firstName: string, lastName: string, abbr: string }, 
+  Number: string, Stops?: string, [key: string]: any 
+}
 
-export const handler = async (gp: GrandPrixLink) => {
-  const sessions = await retrieveSessions(gp.dataEndpoint);
-  const dataPromises = sessions.map(session => session.then(s => sessionProcessor(s)));
-  const storePromises = dataPromises.map(promise => promise.then(session => storeSession(session, gp.name, gp.year)));
-  await Promise.all(storePromises);
-  let gpData = { year: gp.year, name: gp.name, sessions: await Promise.all(dataPromises) }
-  return gpData;
+export const handler = async (event: any) => {
+  const promises = event.Records.map(async (record: any) => {
+    const gp: GrandPrixLink = JSON.parse(record.Sns.Message);
+    console.log('Processing Grand Prix: ' + gp);
+    const dataPromises = await retrieveSessions(gp.dataEndpoint)
+      .then(sessions => sessions.map(session => session.then(s => sessionProcessor(s))));
+    const storePromises = dataPromises.map(promise => 
+      promise.then(data => storeSession(data, gp.name, gp.year)));
+    return Promise.all(storePromises);
+  });
+  return Promise.all(promises);
 }
 
 const client = new dynamo.DynamoDBClient({ region: 'us-east-2' });
@@ -66,7 +73,9 @@ const sessionProcessor = (session: any): Session => {
 const retrieveSessions = async (endpoint: string): Promise<Promise<{ label: string, pageData: string}>[]> => {
   const sessionLinks = hf.scrapeLinks(await hf.makeRequest(endpoint), selectors.session, hf.dataSetLinkMapper);
   return sessionLinks.filter((link: Link) => link.label !== undefined)
-    .map(async (sessionLink: Link, i: number, _: Link[]) => { return { label: sessionLink.label, pageData: await hf.makeRequest(sessionLink.endpoint) }});
+    .map(async (sessionLink: Link, i: number, _: Link[]) => { 
+      return { label: sessionLink.label, pageData: await hf.makeRequest(sessionLink.endpoint) }
+    });
 }
 
 const buildHeaders = ($: any, contextSelector: string): string[] => {

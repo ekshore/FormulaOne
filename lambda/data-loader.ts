@@ -1,20 +1,24 @@
 import * as hf from './utility/helper-functions';
 import { selectors } from './utility/selectors';
-import { LambdaClient, InvokeCommand } from '@aws-sdk/client-lambda';
+import { SNSClient, PublishCommand } from '@aws-sdk/client-sns';
 
-const lambdaClient = new LambdaClient({ region: 'us-east-2' });
+const snsClient = new SNSClient({ region: 'us-east-2' });
 
 export const handler = async (years?: Link[]) => {
   let seasons = years ?? await retrieveSeasons(process.env.ENDPOINT!);
   const gps = seasons.map((season: Link) => retrieveGrandPrixs(season).then((grandPrixs: GrandPrixLink[]) => {
-    // const commands = grandPrixs.map(gp => new InvokeCommand({
-    //   FunctionName: process.env.GP_PROCESSING_FUNC,
-    //   InvocationType: 'Event',
-    //   Payload: JSON.stringify(gp)
-    // }));
-    // console.log(JSON.stringify(commands));
-    // return commands.map(command => lambdaClient.send(command));
-  }))
+    const p = grandPrixs.map(async gp => {
+      const command = new PublishCommand({
+        TopicArn: process.env.GP_TOPIC_ARN,
+        Message: JSON.stringify(gp)
+      });
+      console.log(JSON.stringify(command));
+      return await snsClient.send(command)
+        .then(val => console.log("Published event: "  + JSON.stringify(val)))
+        .catch(err => console.log("Error Publishing Event: " + JSON.stringify(err)));
+    });
+    return Promise.all(p);
+  }));
   await Promise.all(gps);
 }
 
