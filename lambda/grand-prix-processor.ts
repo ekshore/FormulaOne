@@ -14,7 +14,7 @@ type SessionData = {
 export const handler = async (event: any) => {
   const promises = event.Records.map(async (record: any) => {
     const gp: GrandPrixLink = JSON.parse(record.Sns.Message);
-    console.log('Processing Grand Prix: ' + gp);
+    console.log('Processing Grand Prix: ' + JSON.stringify(gp));
     const dataPromises = await retrieveSessions(gp.dataEndpoint)
       .then(sessions => sessions.map(session => session.then(s => sessionProcessor(s))));
     const storePromises = dataPromises.map(promise => 

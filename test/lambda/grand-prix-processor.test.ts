@@ -50,11 +50,20 @@ describe('Testing data processing', () => {
 
   test('Test handler()', async () => {
     mock.onAny().reply(200, sessionData);
-    const gp = { year: '2022', name: 'Bahrain', dataEndpoint: '/en/results.html/2022/races/1124/bahrain/race-result.html' };
-    const result = await Testing.handler(gp);
-    expect(result.sessions.length).toEqual(8);
-    expect(result.sessions[0].data.length).toEqual(20);
-    expect(result.sessions[0].name).toBe('race-result');
+    let callCnt = 0;
+    dynamoMock.on(BatchWriteItemCommand).callsFake(() => {
+      callCnt++;
+      return Promise.resolve();
+    });
+    const gp = {
+      Records: [{ Sns: { Message: JSON.stringify({ 
+        year: '2022', 
+        name: 'Bahrain', 
+        dataEndpoint: '/en/results.html/2022/races/1124/bahrain/race-result.html' 
+      })}}]
+    };
+    await Testing.handler(gp);
+    expect(callCnt).toBe(8);
   });
 
   test('Test storeSession() Failure', async () => {
