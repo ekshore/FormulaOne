@@ -20,7 +20,7 @@ export class FormulaOneDataLoadStack extends Stack {
       runtime: lambda.Runtime.NODEJS_16_X,
       entry: './lambda/data-loader.ts',
       handler: 'handler',
-      timeout: Duration.minutes(1),
+      timeout: Duration.minutes(15),
       environment: {
         F1_HOST: 'https://www.formula1.com',
         ENDPOINT: '/en/results.html',

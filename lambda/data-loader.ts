@@ -5,21 +5,20 @@ import { SNSClient, PublishCommand } from '@aws-sdk/client-sns';
 const snsClient = new SNSClient({ region: 'us-east-2' });
 
 export const handler = async (years?: Link[]) => {
-  let seasons = years ?? await retrieveSeasons(process.env.ENDPOINT!);
-  const gps = seasons.map((season: Link) => retrieveGrandPrixs(season).then((grandPrixs: GrandPrixLink[]) => {
-    const p = grandPrixs.map(async gp => {
+  let seasons: Link[]  = years?.length ? years : await retrieveSeasons(process.env.ENDPOINT!);
+  for (const  season of seasons) {
+    const gps = await retrieveGrandPrixs(season);
+    const promises = gps.map(async gp => {
       const command = new PublishCommand({
         TopicArn: process.env.GP_TOPIC_ARN,
         Message: JSON.stringify(gp)
       });
-      console.log(JSON.stringify(command));
       return await snsClient.send(command)
-        .then(val => console.log("Published event: "  + JSON.stringify(val)))
-        .catch(err => console.log("Error Publishing Event: " + JSON.stringify(err)));
+        .then(val => console.log('Publish Evnet: ' + JSON.stringify(val)))
+        .catch(err => console.log('Error Publishing Event: ' + JSON.stringify(err)));
     });
-    return Promise.all(p);
-  }));
-  await Promise.all(gps);
+    await Promise.all(promises);
+  }
 }
 
 const retrieveGrandPrixs = async (year: Link): Promise<GrandPrixLink[]> => {
