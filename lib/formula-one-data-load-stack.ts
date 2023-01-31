@@ -33,7 +33,7 @@ export class FormulaOneDataLoadStack extends Stack {
       runtime: lambda.Runtime.NODEJS_16_X,
       entry: './lambda/grand-prix-processor.ts',
       handler: 'handler',
-      timeout: Duration.minutes(1),
+      timeout: Duration.minutes(5),
       environment: {
         F1_HOST: 'https://www.formula1.com'
       }
@@ -48,7 +48,15 @@ export class FormulaOneDataLoadStack extends Stack {
       partitionKey : { name : 'year_grandPrix', type : dynamo.AttributeType.STRING },
       sortKey : { name : 'session_driver', type : dynamo.AttributeType.STRING },
       tableName : 'race-data-table',
-      removalPolicy : RemovalPolicy.DESTROY
+      removalPolicy : RemovalPolicy.DESTROY,
+      billingMode: dynamo.BillingMode.PAY_PER_REQUEST
+    });
+
+    raceTable.addGlobalSecondaryIndex({
+      indexName: 'year',
+      partitionKey: { name : 'year', type : dynamo.AttributeType.STRING },
+      sortKey: { name : 'grandPrix_session_driver', type : dynamo.AttributeType.STRING },
+      projectionType: dynamo.ProjectionType.ALL
     });
 
     raceTable.grantWriteData(grandPrixProcessor);
