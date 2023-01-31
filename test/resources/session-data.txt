@@ -3342,7 +3342,7 @@
                 </td>
                 <td class="semi-bold uppercase hide-for-tablet">Aston Martin Aramco Mercedes</td>
                 <td class="bold hide-for-mobile">57</td>
-                <td class="dark bold">+63.829<span class="suffix seconds">s</span></td>
+                <td class="dark bold">+4<span class="suffix"> laps</span></td>
                 <td class="bold">0</td>
                 <td class="limiter"></td>
             </tr>

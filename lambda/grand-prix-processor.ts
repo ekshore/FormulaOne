@@ -93,7 +93,8 @@ const mapData = ($row: any, row: any, headers: string[]) => {
   $row('td', row).filter((_: any, col: any) => $row(col).attr('class') !== 'limiter')
     .map((i: number, col: any) => {
       let item = $row(col).text();
-      if ($row('span', col).text() !== '' && $row('span', col).text() !== 's') item = {
+      if ($row('span', col).text() !== '' && $row('span', col).text() !== 's' 
+          && $row('span', col).text() !== ' laps') item = {
         firstName: $row('span:nth-child(1)', col).text(),
         lastName: $row('span:nth-child(2)', col).text(),
         abbr: $row('span:nth-child(3)', col).text()

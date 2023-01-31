@@ -80,6 +80,8 @@ describe('Testing data processing', () => {
     const result = Testing.sessionProcessor(session);
     expect(result.name).toEqual('race-results');
     expect(result.data.length).toBe(20);
+    expect(result.data[15]['Time/Retired']).toEqual('+61.795s');
+    expect(result.data[16]['Time/Retired']).toEqual('+4 laps');
   });
 });
 
