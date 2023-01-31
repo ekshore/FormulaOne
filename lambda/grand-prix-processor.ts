@@ -94,7 +94,7 @@ const mapData = ($row: any, row: any, headers: string[]) => {
     .map((i: number, col: any) => {
       let item = $row(col).text();
       if ($row('span', col).text() !== '' && $row('span', col).text() !== 's' 
-          && $row('span', col).text() !== ' laps') item = {
+          && $row('span', col).text() !== ' lap' && $row('span', col).text() !== ' laps') item = {
         firstName: $row('span:nth-child(1)', col).text(),
         lastName: $row('span:nth-child(2)', col).text(),
         abbr: $row('span:nth-child(3)', col).text()
