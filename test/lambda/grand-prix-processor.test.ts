@@ -89,7 +89,7 @@ describe('Test Data storage', () => {
   const item = {
     Position: { S: '1' },
     year_grandPrix: { S: '2022#Bahrain' },
-    session_driver: { S: 'race-results#Charles_Leclerc' },
+    session_number_driver: { S: 'race-results#16#Charles_Leclerc' },
     Number: { S: '16' },
     Driver: { 
       M: {
