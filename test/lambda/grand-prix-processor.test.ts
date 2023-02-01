@@ -71,8 +71,7 @@ describe('Testing data processing', () => {
     const session = { name: 'Q1', data: [ 
       { Driver: { firstName: 'Max', lastName: 'Verstappen', abbr: 'ver' }, Number: '1', Car: 'RedBull', Laps: 57 }
     ] };
-    const result = Testing.storeSession(session, 'Bahrain', '2022');
-    expect(result).rejects;
+    expect(() => Testing.storeSession(session, 'Bahrain', '2022')).rejects;
   });
 
   test('Test sessionProcessor()', async () => {
@@ -91,7 +90,6 @@ describe('Test Data storage', () => {
     Position: { S: '1' },
     year_grandPrix: { S: '2022#Bahrain' },
     session_driver: { S: 'race-results#Charles_Leclerc' },
-    grandPrix_session_driver: { S : 'Bahrain#race-results#Charles_Leclerc' },
     Number: { S: '16' },
     Driver: { 
       M: {

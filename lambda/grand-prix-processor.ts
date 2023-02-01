@@ -37,7 +37,10 @@ const storeSession = async (session: Session, grandPrix: string, year: string) =
     }
   }));
   const commandPromises = commands.map(command => client.send(command)
-    .catch(err => console.log({ Error: err, payload: JSON.stringify(command) })));
+    .catch(err => { 
+      console.log({ Error: err, payload: JSON.stringify(command) });
+      return Promise.reject(err);
+    }));
   await Promise.all(commandPromises);
 }
 
@@ -51,15 +54,14 @@ const batchRequests = (requests: dynamo.WriteRequest[]) => {
 
 const mapWriteRequest = (data: SessionData, grandPrix: string, year: string, sessionName: string) =>
     (item: Record<string, dynamo.AttributeValue>, key: string, ): Record<string, dynamo.AttributeValue> => {
-  if (key !== 'Driver') item[`${key}`] = { 'S' : `${data[key]}`};
+  if (key !== 'Driver') item[`${key}`] = { 'S' : `${(data[key] as string).trim()}`};
   else item[`${key}`] = { 'M' : {
-    'firstName' : { 'S' : data.Driver.firstName }, 
-    'lastName' : { 'S' : data.Driver.lastName }, 
+    'firstName' : { 'S' : data.Driver.firstName.trim() }, 
+    'lastName' : { 'S' : data.Driver.lastName.trim() }, 
     'abbr' : { 'S' : data.Driver.abbr }
   }};
-  item['year_grandPrix'] = { 'S' : `${year}#${grandPrix}` };
-  item['session_driver'] = { 'S' : `${sessionName}#${data.Driver.firstName}_${data.Driver.lastName}${data.Stops ? '#' + data.Stops : '' }` };
-  item['grandPrix_session_driver'] = { 'S' : `${grandPrix}#${sessionName}#${data.Driver.firstName}_${data.Driver.lastName}${data.Stops ? '#' + data.Stops : ''}`};
+  item['year_grandPrix'] = { 'S' : `${year}#${grandPrix.trim()}` };
+  item['session_driver'] = { 'S' : `${sessionName}#${data.Driver.firstName.trim()}_${data.Driver.lastName.trim()}${data.Stops ? '#' + data.Stops : '' }` };
   return item;
 }
 
