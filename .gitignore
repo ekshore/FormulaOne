@@ -4,6 +4,7 @@
 !index.d.ts
 node_modules
 coverage/
+bug-research/
 
 # CDK asset staging directory
 .cdk.staging
