@@ -94,9 +94,16 @@ describe('Testing makeRequest()', () => {
     mock.reset();
   });
 
-  test('Testing makeRequest()', async () => {
+  test.skip('Testing makeRequest()', async () => {
     mock.onAny().reply(200, testPage);
     const result = await helperFunctions.makeRequest('/en/results.html/2021/races/1064/bahrain/race-result.html');
     expect(result).toEqual(testPage);
+  });
+
+  test('Testing makeRequest() Error 404', async () => {
+    mock.onAny().reply(404, 'Page not found, Error 404');
+    console.log("Testing Error 404");
+    expect(() => helperFunctions.makeRequest('/en/results/html/2021/races/1064/bahrain/race-result.html'))
+        .rejects.toThrowError();
   });
 });

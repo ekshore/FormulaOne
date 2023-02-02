@@ -19,32 +19,55 @@ beforeAll(() => {
 
 describe('Testing Data Loader', () => {
   let env = process.env;
-  let mock = new MockAdapter(axios);
+  const mock = new MockAdapter(axios);
+  const snsMock = mockClient(SNSClient);
 
   beforeEach(() => {
     process.env = { ... env };
     process.env.ENDPOINT = '/en/results.html';
     process.env.F1_HOST = 'https://www.formula1.com';
     process.env.GP_PROCESSING_FUNC = 'grand-prix-processor';
+
+    snsMock.resolves({});
   });
 
   afterEach(() => {
     process.env = env;
     mock.reset();
+    snsMock.reset();
   });
 
-  afterAll(() => mock.restore());
+  afterAll(() => {
+    mock.restore()
+  });
 
-  test.skip('Testing handler() with one year', async () => {
+  test('Testing handler() with one year', async () => {
+    let callCount = 0;
+    snsMock.on(PublishCommand).callsFake(()=> {
+      callCount++;
+      return Promise.resolve('Successful return from Mock SNS Client.');
+    });
     mock.onAny().reply(200, testPageData);
-    await Testing.handler([{ endpoint: '/en/results.html/2022/races.html', label: '2022' }])
+    await Testing.handler([{ endpoint: '/en/results.html/2022/races.html', label: '2022' }]);
+    expect(callCount).toBe(23);
   });
 
-  test.skip('Testing handler() with no year specified', async () => {
+  test('Testing handler() with no year specified', async () => {
+    let callCount = 0;
+    snsMock.on(PublishCommand).callsFake(()=> {
+      callCount++;
+      return Promise.resolve('Successful return from Mock SNS Client.');
+    });
     mock.onAny().reply(200, testPageOneYearData);
     await Testing.handler();
-    expect(await Testing.handler());
-  })
+    expect(callCount).toBe(1679);
+  });
+
+  test('Testing handler() with SNS publishing failure', () => {
+    snsMock.on(PublishCommand).rejects('Failed return from Mock SNS Client.');
+    mock.onAny().reply(200, testPageOneYearData);
+    expect(() => Testing.handler()).rejects.toThrowError();
+  });
 
   test('Testing retrieveGrandPrixs()', async () => {
     mock.onAny().reply(200, testPageData);
