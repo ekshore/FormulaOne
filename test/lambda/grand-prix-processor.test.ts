@@ -38,15 +38,12 @@ beforeEach(() => {
 afterEach(() => {
   process.env = env;
   mock.reset();
+  dynamoMock.reset();
 });
 
 afterAll(() => mock.restore());
 
 describe('Testing data processing', () => {
-  
-  beforeEach(() => {
-    dynamoMock.on(BatchWriteItemCommand).resolves({});
-  });
 
   test('Test handler()', async () => {
     mock.onAny().reply(200, sessionData);
@@ -66,12 +63,16 @@ describe('Testing data processing', () => {
     expect(callCnt).toBe(8);
   });
 
-  test('Test storeSession() Failure', async () => {
-    dynamoMock.on(BatchWriteItemCommand).rejects();
-    const session = { name: 'Q1', data: [ 
+  test('Test storeSession() Failure', () => {
+    dynamoMock.on(BatchWriteItemCommand).callsFake(() => {
+      console.log('In fake call for failed Dynamo');
+      return Promise.reject('Failed return from Dynamo Mock');
+    });
+    const session = { name: 'Fail', data: [ 
       { Driver: { firstName: 'Max', lastName: 'Verstappen', abbr: 'ver' }, Number: '1', Car: 'RedBull', Laps: 57 }
     ] };
-    expect(() => Testing.storeSession(session, 'Bahrain', '2022')).rejects;
+    console.log(session);
+    expect(() => Testing.storeSession(session, 'Bahrain', '2022')).rejects.toThrowError();
   });
 
   test('Test sessionProcessor()', async () => {

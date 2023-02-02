@@ -14,9 +14,9 @@ export const handler = async (years?: Link[]) => {
         Message: JSON.stringify(gp)
       });
       return await snsClient.send(command)
-        .then(val => console.log('Published Event: ' + JSON.stringify(val)))
+        // .then(val => console.log('Published Event: ' + JSON.stringify(val)))
         .catch(err => {
-          console.log('Error Publishing Event: ' + JSON.stringify(err))
+          // console.log('Error Publishing Event: ' + JSON.stringify(err))
           throw err;
         });
     });

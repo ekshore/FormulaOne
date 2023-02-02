@@ -94,7 +94,7 @@ describe('Testing makeRequest()', () => {
     mock.reset();
   });
 
-  test.skip('Testing makeRequest()', async () => {
+  test('Testing makeRequest()', async () => {
     mock.onAny().reply(200, testPage);
     const result = await helperFunctions.makeRequest('/en/results.html/2021/races/1064/bahrain/race-result.html');
     expect(result).toEqual(testPage);
