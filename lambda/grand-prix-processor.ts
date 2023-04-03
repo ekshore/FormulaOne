@@ -1,4 +1,4 @@
-const cheerio = require('cheerio');
+import * as cheerio from 'cheerio';
 import * as hf from './utility/helper-functions';
 import { selectors } from './utility/selectors';
 
