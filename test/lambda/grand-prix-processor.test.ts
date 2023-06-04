@@ -95,6 +95,8 @@ describe('Test Data storage', () => {
         Position: { S: '1' },
         year_grandPrix: { S: '2022#Bahrain' },
         session_number_driver: { S: 'race-results#16#Charles_Leclerc' },
+        year: { 'S': '2022' },
+        grandPrix_session_driver: { 'S': 'Bahrain#race-results#Charles_Leclerc' },
         Number: { S: '16' },
         Driver: {
             M: {

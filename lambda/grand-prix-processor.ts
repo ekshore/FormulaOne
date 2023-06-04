@@ -37,7 +37,6 @@ const storeSession = async (session: Session, grandPrix: string, year: string) =
         }
     }));
     const commandPromises = commands.map(command => {
-        console.log('Are we here' + JSON.stringify(command));
         client.send(command).catch(err => {
             console.log('dynamo rejected');
             console.log({ Error: err, payload: JSON.stringify(command) });
