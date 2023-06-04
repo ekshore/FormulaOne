@@ -67,6 +67,8 @@ const mapWriteRequest = (data: SessionData, grandPrix: string, year: string, ses
         };
         item['year_grandPrix'] = { 'S': `${year}#${grandPrix.trim()}` };
         item['session_number_driver'] = { 'S': `${sessionName}#${data.Number}#${data.Driver.firstName.trim()}_${data.Driver.lastName.trim()}${data.Stops ? '#' + data.Stops : ''}` };
+        item['year'] = { 'S': `${year}` };
+        item['grandPrix_session_driver'] = { 'S': `${grandPrix.trim()}#${sessionName}#${data.Driver.firstName.trim()}_${data.Driver.lastName.trim()}` };
         return item;
     }
 
