@@ -9,7 +9,7 @@ import * as subscriptions from 'aws-cdk-lib/aws-sns-subscriptions';
 export class FormulaOneDataLoadStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props);
-    
+
     const grandPrixTopic = new sns.Topic(this, 'grand-prix-topic', {
       topicName: 'grand-prix-topic',
       displayName: 'grand-prix-topic'
