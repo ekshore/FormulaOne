@@ -46,7 +46,7 @@ export class FormulaOneDataLoadStack extends Stack {
 
     const raceTable = new dynamo.Table(this, 'raceData', {
       partitionKey : { name : 'year_grandPrix', type : dynamo.AttributeType.STRING },
-      sortKey : { name : 'session_driver', type : dynamo.AttributeType.STRING },
+      sortKey : { name : 'session_number_driver', type : dynamo.AttributeType.STRING },
       tableName : 'race-data-table',
       removalPolicy : RemovalPolicy.DESTROY,
       billingMode: dynamo.BillingMode.PAY_PER_REQUEST

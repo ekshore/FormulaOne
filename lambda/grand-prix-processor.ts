@@ -36,12 +36,15 @@ const storeSession = async (session: Session, grandPrix: string, year: string) =
             'race-data-table': itemBatch
         }
     }));
-    const commandPromises = commands.map(command => {
-        client.send(command).catch(err => {
-            console.log('dynamo rejected');
-            console.log({ Error: err, payload: JSON.stringify(command) });
-            throw err;
-        });
+    const commandPromises = commands.map(async command => {
+        console.log('Are we here' + JSON.stringify(command));
+        return client.send(command)
+            .then(_res => console.log("Data written to Dynamo"))
+            .catch(err => {
+                console.log('dynamo rejected');
+                console.log({ Error: err, payload: JSON.stringify(command) });
+                throw err;
+            });
     });
     await Promise.all(commandPromises);
 }
