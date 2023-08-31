@@ -1,14 +1,6 @@
-# Welcome to your CDK TypeScript project
+# Formula One Data Collection
 
-This is a blank project for CDK development with TypeScript.
+This Project is experimenting with large datasets. Because I enjoy motor sport and there is a lot of statistics kept around Formula 1 it makes for a good dataset to work with. Hopefully a front end will be coming in the near future to visualize all of these statistics.
 
-The `cdk.json` file tells the CDK Toolkit how to execute your app.
-
-## Useful commands
-
-* `npm run build`   compile typescript to js
-* `npm run watch`   watch for changes and compile
-* `npm run test`    perform the jest unit tests
-* `cdk deploy`      deploy this stack to your default AWS account/region
-* `cdk diff`        compare deployed stack with current state
-* `cdk synth`       emits the synthesized CloudFormation template
+## Current state
+This project currently scrapes data from the F1 website and dumps it in my own DynamoDB table for future use.
